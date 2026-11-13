@@ -1,0 +1,80 @@
+{
+  "name": "djai",
+  "version": "1.0.0",
+  "description": "DJAI - Autonomous AI DJ Desktop Application",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "dev:renderer": "vite",
+    "build:renderer": "vite build",
+    "build:main": "esbuild src/main/main.ts --bundle --platform=node --target=node20 --outfile=dist/main/main.js --external:electron",
+    "build:preload": "esbuild src/preload/preload.ts --bundle --platform=node --target=node20 --outfile=dist/preload/preload.js --external:electron",
+    "build": "npm run build:renderer && npm run build:main && npm run build:preload",
+    "dev": "npm run build:main && npm run build:preload && concurrently -k \"vite\" \"electron .\"",
+    "start": "electron .",
+    "package:win": "npm run build && electron-builder --win",
+    "package:mac": "npm run build && electron-builder --mac",
+    "package:all": "npm run build && electron-builder -mw"
+  },
+  "build": {
+    "appId": "com.djai.app",
+    "productName": "DJAI",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.music",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64", "universal"]
+        },
+        {
+          "target": "zip",
+          "arch": ["x64", "arm64", "universal"]
+        }
+      ],
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    }
+  },
+  "keywords": [
+    "dj",
+    "ai",
+    "techno",
+    "webaudio",
+    "gemini"
+  ],
+  "author": "DJAI Team",
+  "license": "MIT",
+  "dependencies": {
+    "lucide-react": "^1.72.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "autoprefixer": "^10.6.2",
+    "concurrently": "^10.0.7",
+    "cross-env": "^10.1.0",
+    "electron": "^45.3.2",
+    "electron-builder": "^26.18.0",
+    "esbuild": "^0.28.2",
+    "postcss": "^8.5.32",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}

@@ -1,0 +1,21 @@
+# dependencies & build output
+node_modules/
+dist/
+release/
+
+# local music libraries (large, copyrighted) and local backups
+music/
+music2/
+*.mp3
+*.wav
+*.flac
+*.m4a
+*.ogg
+src_backup_*/
+
+# misc
+.DS_Store
+Thumbs.db
+*.log
+tsconfig.check.json
+.claude/
